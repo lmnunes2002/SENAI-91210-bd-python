@@ -3,10 +3,10 @@
 ## Atividade
 ### Instruções:
 Criar uma classe Aluno com os atributos abaixo:
-    - R.A
-    - Nome
-    - Idade
-    - E-mail
+- R.A
+- Nome
+- Idade
+- E-mail
 
 ### Objetivos:
 - Salvar no banco de dados
