@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 db = create_engine("sqlite:///meubanco.db")
 
 # Conexão com banco de dados.
-Session = sessionmaker(bin = db)
+Session = sessionmaker(bind = db)
 session = Session()
 
 # Criado tabela.
@@ -30,3 +30,18 @@ class Usuario(Base):
 
 # Criando tabela no banco de dados.
 Base.metadata.create_all(bind = db)
+
+# Salvar no banco de dados.
+# usuario = Usuario("Marta", "marta@gmail.com", "123")
+# Equivalente ao INSERT INTO TABLE
+usuario = Usuario(nome= "Marta", email= "marta@gmail.com", senha= "123")
+session.add(usuario)
+session.commit()
+
+# Mostrando conteúdo do banco de dados.
+# Equivalente ao SELECT * FROM
+# VIEWS - SELECT 
+lista_usuarios = session.query(Usuario).all()
+
+for usuario in lista_usuarios:
+    print(f"{usuario.id} - {usuario.nome} - {usuario.email}")
