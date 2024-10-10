@@ -9,17 +9,24 @@ db = create_engine("sqlite:///meubanco.db")
 Session = sessionmaker(bin = db)
 session = Session()
 
-# I/O
-# I = input (Entrada)
-# O = output (Saída)
-
-# Abrindo uma conexão.
-
+# Criado tabela.
 Base = declarative_base()
 
-# Criado tabela.
 class Usuario(Base):
+    # Definindo nome da tabela.
+    __tablename__ = "usuarios"
+
+    # Definindo atributos da tabela.
+    id = Column("id", Integer, primary_key = True, autoincrement= True)
+    nome = Column("nome", String)
+    email = Column("email", String)
+    senha = Column("senha", String)
+
+    # Definindo atributos da classe.
     def __init__(self, nome: str, email: str, senha: str):
         self.nome = nome
         self.email = email
         self.senha = senha
+
+# Criando tabela no banco de dados.
+Base.metadata.create_all(bind = db)
