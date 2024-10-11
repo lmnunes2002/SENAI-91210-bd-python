@@ -41,6 +41,7 @@ for i in range(3):
     aluno = Aluno(nome= nome, email= email, senha= senha)
     session.add(aluno)
     session.commit()
+    print()
 
 # Mostrando conteúdo do banco de dados.
 # Equivalente ao SELECT * FROM
@@ -50,8 +51,10 @@ lista_alunos = session.query(Aluno).all()
 for aluno in lista_alunos:
     print(f"{aluno.ra} - {aluno.nome} - {aluno.email}")
 
-# Deletando um usuário
-aluno = session.query(Aluno).filter_by(email = "jose@email.com").first()
+# Deletando um aluno
+print("\nExcluindo aluno do banco de dados")
+email_aluno = input("Informe o e-mail do aluno: ")
+aluno = session.query(Aluno).filter_by(email = email_aluno).first()
 session.delete(aluno)
 session.commit()
 print("\nUsuário deletado com sucesso.")
@@ -62,3 +65,28 @@ lista_alunos = session.query(Aluno).all()
 
 for aluno in lista_alunos:
     print(f"{aluno.ra} - {aluno.nome} - {aluno.email}")
+
+# Atualizar um aluno
+print("\nAtualizando os dados de um aluno.")
+
+email_aluno = input("Informe o e-mail do aluno: ")
+
+aluno = session.query(Aluno).filter_by(email = email_aluno).first()
+
+aluno.nome = input("Digite seu nome: ")
+aluno.email = input("Digite seu e-mail: ")
+aluno.senha = input("Digite sua senha: ")
+
+session.commit()
+
+# Pesquisando um aluno
+print("\nPesquisando um aluno pelo e-mail")
+
+email_aluno = input("Informe o e-mail do aluno: ")
+
+aluno = session.query(Aluno).filter_by(email = email_aluno).first()
+
+print(f"{aluno.ra} - {aluno.nome} - {aluno.email}")
+
+# Fechando conexão
+session.close()
