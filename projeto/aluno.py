@@ -13,7 +13,7 @@ session = Session()
 Base = declarative_base()
 
 class Aluno(Base):
-    # Definindo nome da tabela
+    # Definindo nome da tabela.
     __tablename__ = "alunos"
 
     # Definindo atributos da tabela.
@@ -32,7 +32,7 @@ class Aluno(Base):
 Base.metadata.create_all(bind = db)
 
 # Salvar no banco de dados.
-# Equivalente ao INSERT INTO TABLE
+# Equivalente ao INSERT INTO TABLE.
 for i in range(3):
     nome = input("Digite seu nome: ")
     email = input("Digite seu email: ")
@@ -44,15 +44,15 @@ for i in range(3):
     print()
 
 # Mostrando conteúdo do banco de dados.
-# Equivalente ao SELECT * FROM
+# Equivalente ao SELECT * FROM.
 # VIEWS - SELECT
 lista_alunos = session.query(Aluno).all()
 
 for aluno in lista_alunos:
     print(f"{aluno.ra} - {aluno.nome} - {aluno.email}")
 
-# Deletando um aluno
-print("\nExcluindo aluno do banco de dados")
+# Deletando um aluno.
+print("\nExcluindo aluno do banco de dados.")
 email_aluno = input("Informe o e-mail do aluno: ")
 aluno = session.query(Aluno).filter_by(email = email_aluno).first()
 session.delete(aluno)
@@ -66,20 +66,26 @@ lista_alunos = session.query(Aluno).all()
 for aluno in lista_alunos:
     print(f"{aluno.ra} - {aluno.nome} - {aluno.email}")
 
-# Atualizar um aluno
+# Atualizar um aluno.
 print("\nAtualizando os dados de um aluno.")
 email_aluno = input("Informe o e-mail do aluno: ")
 aluno = session.query(Aluno).filter_by(email = email_aluno).first()
-aluno.nome = input("Digite seu nome: ")
-aluno.email = input("Digite seu e-mail: ")
-aluno.senha = input("Digite sua senha: ")
-session.commit()
+if aluno:
+    aluno.nome = input("Digite seu nome: ")
+    aluno.email = input("Digite seu e-mail: ")
+    aluno.senha = input("Digite sua senha: ")
+    session.commit()
+else:
+    print("Aluno não encontrado.")
 
-# Pesquisando um aluno
-print("\nPesquisando um aluno pelo e-mail")
+# Pesquisando um aluno.
+print("\nPesquisando um aluno pelo e-mail.")
 email_aluno = input("Informe o e-mail do aluno: ")
 aluno = session.query(Aluno).filter_by(email = email_aluno).first()
-print(f"{aluno.ra} - {aluno.nome} - {aluno.email}")
+if aluno:
+    print(f"{aluno.ra} - {aluno.nome} - {aluno.email}")
+else:
+    print("Aluno não encontrado.")
 
-# Fechando conexão
+# Fechando conexão.
 session.close()
