@@ -68,24 +68,17 @@ for aluno in lista_alunos:
 
 # Atualizar um aluno
 print("\nAtualizando os dados de um aluno.")
-
 email_aluno = input("Informe o e-mail do aluno: ")
-
 aluno = session.query(Aluno).filter_by(email = email_aluno).first()
-
 aluno.nome = input("Digite seu nome: ")
 aluno.email = input("Digite seu e-mail: ")
 aluno.senha = input("Digite sua senha: ")
-
 session.commit()
 
 # Pesquisando um aluno
 print("\nPesquisando um aluno pelo e-mail")
-
 email_aluno = input("Informe o e-mail do aluno: ")
-
 aluno = session.query(Aluno).filter_by(email = email_aluno).first()
-
 print(f"{aluno.ra} - {aluno.nome} - {aluno.email}")
 
 # Fechando conexão
